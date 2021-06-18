@@ -58,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  // Ovo je komentar koji je dodat da bi se projekat povezao sa gitom potpuno
 
   @override
   Widget build(BuildContext context) {
