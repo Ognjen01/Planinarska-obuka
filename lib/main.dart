@@ -40,11 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Main window is not yet edited',
-            ),
+            Image(image: AssetImage('assets/ikonica.png'),),
           ],
         ),
       ),
