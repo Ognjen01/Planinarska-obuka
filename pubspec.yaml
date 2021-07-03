@@ -33,14 +33,20 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_name: "^0.0.1"
   flutter_native_splash: ^0.2.8
   flutter_launcher_icons: "^0.8.0"
+
 
 flutter_native_splash:
   color: "#ffffff"
   image: "assets/resize.png"
   android: true
   ios: true
+  
+  
+flutter_launcher_name:
+  name: "Planinarska Obuka"
 
 
 flutter_icons:
