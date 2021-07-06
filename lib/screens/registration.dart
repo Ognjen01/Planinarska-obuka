@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:planinarska_obuka/screens/registration.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class Registration extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: RegistrationPage(title: 'Planinarska obuka'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class RegistrationPage extends StatefulWidget {
+  RegistrationPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 image: AssetImage('assets/logo.png'),
               ),
               Text(
-                "Prijava",
+                "Registracija",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               Spacer(flex: 1),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Ime i prezime',
+                ),
+              ),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Korisničko ime',
@@ -61,33 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 width: 150.0,
                 height: 50.0,
+                
                 child: new RaisedButton(
                   color: Color(0xff9dcbbc),
-                  child: new Text('Prijavi se'),
-                  onPressed: () {
+                  child: new Text('Registruj se'),
+                  onPressed: (){
 
+                    // TODO: Request za Firebase bazu podataka i registrovanje novih korisnika,
+                    //       Slanje na početni ekran, sa kvizovima mapama itd...
 
-                    // TODO: Provjera konekcije
-
-                    // TODO: Provjera da li postoji registrovani korisnika sa unesenim informacijama
-                    //       Slanje na početni ekran 
-                    
-
-                    print("PRIJAVA");
+                    print("REGISTRACIJA");
                   },
                 ),
-              ),
-              Spacer(flex: 1),
-              InkWell(
-                onTap: () {
-
-                  // TODO: Provjera konekcije
-
-                  print("REGISTRACIJA");
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Registration()));
-                },
-                child: new Text("Registruj se"),
               ),
               Spacer(flex: 6),
             ],
