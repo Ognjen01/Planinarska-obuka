@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/main.dart';
+import 'package:planinarska_obuka/models/content.dart';
+import 'package:planinarska_obuka/models/content_list.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
@@ -27,11 +29,32 @@ class MainScreenPage extends StatefulWidget {
 
 class _MainScreenPage extends State<MainScreenPage> {
   // Ovaj dio zavisi od prijavljenog korisnika i requesta:
+
+  // TESTNI PODACI:
+
   User user1 = new User(
       name: "Ognjen",
       userName: "ognjen01",
       password: "ogara01",
       numberOfPoints: 10);
+
+  List<Content> content = [
+    Content(
+      name: "Mape planinarskih staza",
+      image: "assets/1.jpg",
+      requestURL: "PRVI"
+    ),
+    Content(
+      name: "Planinarska obuka",
+      image: "assets/2.jpg",
+      requestURL: "DRUGI"
+    ),
+    Content(
+      name: "ELement 3",
+      image: "assets/3.jpg",
+      requestURL: "TRECI"
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +79,10 @@ class _MainScreenPage extends State<MainScreenPage> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              UserProfileWidget(user: user1)
+              UserProfileWidget(user: user1),
+              ContentList(content)
               // Sadržaj početnog ekrana
             ],
           ),
