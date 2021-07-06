@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/main.dart';
+import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -24,17 +26,23 @@ class MainScreenPage extends StatefulWidget {
 }
 
 class _MainScreenPage extends State<MainScreenPage> {
+  // Ovaj dio zavisi od prijavljenog korisnika i requesta:
+  User user1 = new User(
+      name: "Ognjen",
+      userName: "ognjen01",
+      password: "ogara01",
+      numberOfPoints: 10);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xff080947) ),
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-                        builder: (context) => MyApp())
-            // TODO: Provjeriti ovakvu implementanciju
-          ),
+          icon: Icon(Icons.arrow_back, color: Color(0xff080947)),
+          onPressed: () => Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => MyApp())
+                  // TODO: Provjeriti ovakvu implementanciju
+                  ),
         ),
         title: Text(
           "Planinarska obuka",
@@ -45,11 +53,12 @@ class _MainScreenPage extends State<MainScreenPage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(60.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              UserProfileWidget(user: user1)
               // Sadržaj početnog ekrana
             ],
           ),
