@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "230123122910",
+    "project_id": "planinarska-obuka-4bb6c",
+    "storage_bucket": "planinarska-obuka-4bb6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230123122910:android:18ba51bd8404b03e49524f",
+        "android_client_info": {
+          "package_name": "com.ognjenlazic.planinarska_obuka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230123122910-to94invenkmov75lsktidsehogdqpaus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSTjuvD0QXfztL23OtZE2LvaWudZvfJaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230123122910-to94invenkmov75lsktidsehogdqpaus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
