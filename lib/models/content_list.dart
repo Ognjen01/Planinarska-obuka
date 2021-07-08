@@ -15,7 +15,6 @@ class ContentList extends StatelessWidget {
         children: list.map((con) {
           print(con.requestURL.toString());
           return Container(
-            
             child: ContentWidget(con),
           );
         }).toList(),

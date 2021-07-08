@@ -42,17 +42,17 @@ class _MainScreenPage extends State<MainScreenPage> {
     Content(
       name: "Mape planinarskih staza",
       image: "assets/1.jpg",
-      requestURL: "PRVI"
+      requestURL: "_request_1_"
     ),
     Content(
       name: "Planinarska obuka",
       image: "assets/2.jpg",
-      requestURL: "DRUGI"
+      requestURL: "_request_2_"
     ),
     Content(
-      name: "ELement 3",
+      name: "Rang lista igrača",
       image: "assets/3.jpg",
-      requestURL: "TRECI"
+      requestURL: "_request_3_"
     )
   ];
 
