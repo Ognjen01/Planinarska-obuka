@@ -6,6 +6,11 @@ import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class MainScreen extends StatelessWidget {
+
+  User currentUser;
+
+  MainScreen({@required this.currentUser});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,22 +18,26 @@ class MainScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainScreenPage(),
+      home: MainScreenPage(currentUser: currentUser,),
     );
   }
 }
 
 class MainScreenPage extends StatefulWidget {
-  MainScreenPage({Key key, this.title}) : super(key: key);
+  
 
+  User currentUser;
   final String title;
+  MainScreenPage({Key key, this.title, @required this.currentUser}) : super(key: key);
 
   @override
-  _MainScreenPage createState() => _MainScreenPage();
+  _MainScreenPage createState() => _MainScreenPage(currentUser: currentUser);
 }
 
 class _MainScreenPage extends State<MainScreenPage> {
   // Ovaj dio zavisi od prijavljenog korisnika i requesta:
+  User currentUser;
+  _MainScreenPage({@required this.currentUser});
 
   // TESTNI PODACI:
 
@@ -81,7 +90,7 @@ class _MainScreenPage extends State<MainScreenPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              UserProfileWidget(user: user1),
+              UserProfileWidget(user: currentUser),
               ContentList(content)
               // Sadržaj početnog ekrana
             ],
