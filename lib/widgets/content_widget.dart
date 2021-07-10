@@ -15,11 +15,7 @@ class ContentWidget extends StatelessWidget {
             child: InkWell(
               onTap: (){
 
-                // TODO: 1. Slanje requesta za svako dugme koje se pritisne
-                //       2. Konstrusati bazu tako da ima 2..3 različita polja za svako dugme, kao i za korisnike
-                //       3. Nakon toga preuzeti listu mapa/pitanja/korisnika itd. u zavisnosti šta je potrebno
-                //       4. Pokrenuti novi ekran u koji se prosleđuju te informacije 
-                //       5. Ekran formirati u zavisnosti od pokrenutog dugmeta
+                
 
 
                 print("PROBA");

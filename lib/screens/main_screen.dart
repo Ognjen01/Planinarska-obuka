@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/main.dart';
 import 'package:planinarska_obuka/models/content.dart';
@@ -6,7 +7,6 @@ import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class MainScreen extends StatelessWidget {
-
   User currentUser;
 
   MainScreen({@required this.currentUser});
@@ -18,17 +18,18 @@ class MainScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainScreenPage(currentUser: currentUser,),
+      home: MainScreenPage(
+        currentUser: currentUser,
+      ),
     );
   }
 }
 
 class MainScreenPage extends StatefulWidget {
-  
-
   User currentUser;
   final String title;
-  MainScreenPage({Key key, this.title, @required this.currentUser}) : super(key: key);
+  MainScreenPage({Key key, this.title, @required this.currentUser})
+      : super(key: key);
 
   @override
   _MainScreenPage createState() => _MainScreenPage(currentUser: currentUser);
@@ -49,20 +50,12 @@ class _MainScreenPage extends State<MainScreenPage> {
 
   List<Content> content = [
     Content(
-      name: "Mape planinarskih staza",
-      image: "assets/1.jpg",
-      requestURL: "_request_1_"
-    ),
+        name: "Mape planinarskih staza",
+        image: "assets/1.jpg",
+        requestURL: "mape"),
+    Content(name: "Obuka", image: "assets/2.jpg", requestURL: "quizzes"),
     Content(
-      name: "Planinarska obuka",
-      image: "assets/2.jpg",
-      requestURL: "_request_2_"
-    ),
-    Content(
-      name: "Rang lista igrača",
-      image: "assets/3.jpg",
-      requestURL: "_request_3_"
-    )
+        name: "Rang lista igrača", image: "assets/3.jpg", requestURL: "users")
   ];
 
   @override
@@ -91,7 +84,102 @@ class _MainScreenPage extends State<MainScreenPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               UserProfileWidget(user: currentUser),
-              ContentList(content)
+
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      print("PROBA");
+                      print("OVO TAP NA CONTAINER mape");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 200.0,
+                      child: Center(
+                          child: Text("Mape planinarskih staza",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                      decoration: BoxDecoration(
+                          //color: Colors.indigo,
+                          image: DecorationImage(
+                              image: AssetImage("assets/1.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      print("OVO TAP NA CONTAINER quizzes");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 200.0,
+                      child: Center(
+                          child: Text("Obuka",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                      decoration: BoxDecoration(
+                          //color: Colors.indigo,
+                          image: DecorationImage(
+                              image: AssetImage("assets/2.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      List<User> allUsers;
+                      FirebaseFirestore.instance.collection('users')
+                        ..get().then((querySnapshot) {
+                          querySnapshot.docs.forEach((result) {
+                            print(result.data());
+                            User registredUser = User(
+                                name: result['name'],
+                                numberOfPoints: result['numberOfPoints'],
+                                password: result['password'],
+                                userName: result['userName']);
+                                
+                                allUsers.add(registredUser);
+                          });
+                        });
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              MainScreen(currentUser: currentUser)));
+
+                      print("OVO TAP NA CONTAINER users");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 200.0,
+                      child: Center(
+                          child: Text("Rang lista takmičara",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                      decoration: BoxDecoration(
+                          //color: Colors.indigo,
+                          image: DecorationImage(
+                              image: AssetImage("assets/3.jpg"),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                ),
+              ),
               // Sadržaj početnog ekrana
             ],
           ),

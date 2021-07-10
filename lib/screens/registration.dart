@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:planinarska_obuka/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'main_screen.dart';
 
 class Registration extends StatelessWidget {
   @override
@@ -23,10 +27,13 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  TextEditingController myController1 = new TextEditingController();
+  TextEditingController myController2 = new TextEditingController();
+  TextEditingController myController3 = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       // Moguće je dodati strelicu za vraćanje na prethodnu stranicu, stranicu prijave
 
       body: Center(
@@ -41,20 +48,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               Text(
                 "Registracija",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Color(0xff080947)),
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff080947)),
               ),
               Spacer(flex: 1),
               TextField(
+                controller: myController1,
                 decoration: InputDecoration(
                   labelText: 'Ime',
                 ),
               ),
               TextField(
+                controller: myController2,
                 decoration: InputDecoration(
                   labelText: 'Korisničko ime',
                 ),
               ),
               TextField(
+                  controller: myController3,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Lozinka',
@@ -63,14 +76,43 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(
                 width: 150.0,
                 height: 50.0,
-                
                 child: new RaisedButton(
                   color: Color(0xff9dcbbc),
-                  child: new Text('REGISTRUJ SE', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xff080947)),),
-                  onPressed: (){
+                  child: new Text(
+                    'REGISTRUJ SE',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff080947)),
+                  ),
+                  onPressed: () {
 
-                    // TODO: Request za Firebase bazu podataka i registrovanje novih korisnika,
-                    //       Slanje na početni ekran, sa kvizovima mapama itd...
+                    try {
+                      FirebaseFirestore.instance
+                        ..collection("users").add({
+                          "name": myController1.text,
+                          "numberOfPoints": 0,
+                          "userName": myController2.text,
+                          "password": myController3.text
+                        }).then((value) {
+                          print(value.id);
+                          AlertDialog(
+                              content: Text("Uspješno izvršena registracija!"));
+
+                          User newUser = User(
+                              name: myController1.text,
+                              userName: myController2.text,
+                              password: myController3.text,
+                              numberOfPoints: 0);
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  
+                                  builder: (context) => MainScreen(currentUser: newUser)));
+                        });
+                    } catch (e) {
+                      AlertDialog(
+                        content: Text(
+                            "Došlo je go greške, molimo pokušajte ponovo!"),
+                      );
+                    }
 
                     print("REGISTRACIJA");
                   },
