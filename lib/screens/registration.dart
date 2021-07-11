@@ -35,7 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Moguće je dodati strelicu za vraćanje na prethodnu stranicu, stranicu prijave
-
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(60.0),

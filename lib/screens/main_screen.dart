@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/main.dart';
 import 'package:planinarska_obuka/models/content.dart';
-import 'package:planinarska_obuka/models/content_list.dart';
 import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/screens/users_rang_list.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class MainScreen extends StatelessWidget {
@@ -71,117 +71,125 @@ class _MainScreenPage extends State<MainScreenPage> {
         ),
         title: Text(
           "Planinarska obuka",
-          style:
-              TextStyle(color: Color(0xff080947), fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Color(0xff080947),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: const Color(0xff9dcbbc),
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              UserProfileWidget(user: currentUser),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                UserProfileWidget(user: currentUser),
 
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      print("PROBA");
-                      print("OVO TAP NA CONTAINER mape");
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 200.0,
-                      child: Center(
-                          child: Text("Mape planinarskih staza",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                      decoration: BoxDecoration(
-                          //color: Colors.indigo,
-                          image: DecorationImage(
-                              image: AssetImage("assets/1.jpg"),
-                              fit: BoxFit.cover)),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        print("PROBA");
+                        print("OVO TAP NA CONTAINER mape");
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 200.0,
+                        child: Center(
+                            child: Text("Mape planinarskih staza",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white))),
+                        decoration: BoxDecoration(
+                            //color: Colors.indigo,
+                            image: DecorationImage(
+                                image: AssetImage("assets/1.jpg"),
+                                fit: BoxFit.cover)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      print("OVO TAP NA CONTAINER quizzes");
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 200.0,
-                      child: Center(
-                          child: Text("Obuka",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                      decoration: BoxDecoration(
-                          //color: Colors.indigo,
-                          image: DecorationImage(
-                              image: AssetImage("assets/2.jpg"),
-                              fit: BoxFit.cover)),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        print("OVO TAP NA CONTAINER quizzes");
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 200.0,
+                        child: Center(
+                            child: Text("Obuka",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white))),
+                        decoration: BoxDecoration(
+                            //color: Colors.indigo,
+                            image: DecorationImage(
+                                image: AssetImage("assets/2.jpg"),
+                                fit: BoxFit.cover)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      List<User> allUsers;
-                      FirebaseFirestore.instance.collection('users')
-                        ..get().then((querySnapshot) {
-                          querySnapshot.docs.forEach((result) {
-                            print(result.data());
-                            User registredUser = User(
-                                name: result['name'],
-                                numberOfPoints: result['numberOfPoints'],
-                                password: result['password'],
-                                userName: result['userName']);
-                                
-                                allUsers.add(registredUser);
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+
+                        // Check usage of this part of code: 
+
+                        List<User> allUsers = new List<User>();
+
+                        FirebaseFirestore.instance.collection('users')
+                          ..get().then((querySnapshot) {
+                            querySnapshot.docs.forEach((result) {
+                              print(result.data());
+                              User registredUser = new User(
+                                  name: result['name'],
+                                  numberOfPoints: result['numberOfPoints'],
+                                  password: result['password'],
+                                  userName: result['userName']);
+
+                              allUsers.add(registredUser);
+                            });
                           });
-                        });
 
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              MainScreen(currentUser: currentUser)));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                UserRangList(allUsers, currentUser)));
 
-                      print("OVO TAP NA CONTAINER users");
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 200.0,
-                      child: Center(
-                          child: Text("Rang lista takmičara",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                      decoration: BoxDecoration(
-                          //color: Colors.indigo,
-                          image: DecorationImage(
-                              image: AssetImage("assets/3.jpg"),
-                              fit: BoxFit.cover)),
+                        print("OVO TAP NA CONTAINER users");
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 200.0,
+                        child: Center(
+                            child: Text("Rang lista takmičara",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white))),
+                        decoration: BoxDecoration(
+                            //color: Colors.indigo,
+                            image: DecorationImage(
+                                image: AssetImage("assets/3.jpg"),
+                                fit: BoxFit.cover)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Sadržaj početnog ekrana
-            ],
+                // Sadržaj početnog ekrana
+              ],
+            ),
           ),
         ),
       ),
