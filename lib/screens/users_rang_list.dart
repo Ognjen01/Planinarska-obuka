@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/models/user_list.dart';
 import 'package:planinarska_obuka/screens/main_screen.dart';
+import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class UserRangList extends StatelessWidget {
   User currentUser;
-  List<User> allUsers;
-  UserRangList(this.allUsers, this.currentUser);
+  UserRangList(this.currentUser);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,6 @@ class UserRangList extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: RangListPage(
-        allUsers: allUsers,
         currentUser: currentUser,
       ),
     );
@@ -26,21 +25,19 @@ class UserRangList extends StatelessWidget {
 
 class RangListPage extends StatefulWidget {
   User currentUser;
-  List<User> allUsers;
 
-  RangListPage({@required this.allUsers, @required this.currentUser});
+  RangListPage({@required this.currentUser});
 
   @override
   _RangListPage createState() =>
-      _RangListPage(allUsers: allUsers, currentUser: currentUser);
+      _RangListPage(currentUser: currentUser);
 }
 
 class _RangListPage extends State<RangListPage> {
   User currentUser;
-  List<User> allUsers;
-  _RangListPage({@required this.allUsers, @required this.currentUser});
-
   List<User> users = [];
+  _RangListPage({@required this.currentUser});
+
 
   @override
   void initState() {
@@ -58,6 +55,7 @@ class _RangListPage extends State<RangListPage> {
         users = result;
       });
     }
+    bubbleSort(users);
   }
 
   @override
@@ -67,11 +65,9 @@ class _RangListPage extends State<RangListPage> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Color(0xff080947)),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MainScreen(
-                          currentUser: currentUser,
-                        ))
-                // TODO: Provjeriti ovakvu implementanciju
-                ),
+                builder: (context) => MainScreen(
+                      currentUser: currentUser,
+                    ))),
           ),
           title: Text(
             "Rang lista takmičara",
@@ -83,12 +79,7 @@ class _RangListPage extends State<RangListPage> {
         body: ListView.builder(
           itemCount: users.length,
           itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                title: Text(users[index].name),
-                subtitle: Text(users[index].userName),
-              ),
-            );
+            return UserProfileWidget(user: users[index]);
           },
         ));
   }
@@ -117,5 +108,19 @@ class _RangListPage extends State<RangListPage> {
       print(e.toString());
       return (null);
     }
+  }
+
+  // Sorting algoryhm for user rang list: 
+  List<User> bubbleSort(List<User> list) {
+    for (int i = 0; i < list.length; i++) {
+      for (int j = 0; j < list.length - 1; j++) {
+        if (list[j].numberOfPoints < list[j + 1].numberOfPoints) {
+          User num = list[j];
+          list[j] = list[j + 1];
+          list[j + 1] = num;
+        }
+      }
+    }
+    return list;
   }
 }

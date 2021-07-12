@@ -145,27 +145,9 @@ class _MainScreenPage extends State<MainScreenPage> {
                     child: InkWell(
                       onTap: () {
 
-                        // Check usage of this part of code: 
-
-                        List<User> allUsers = new List<User>();
-
-                        FirebaseFirestore.instance.collection('users')
-                          ..get().then((querySnapshot) {
-                            querySnapshot.docs.forEach((result) {
-                              print(result.data());
-                              User registredUser = new User(
-                                  name: result['name'],
-                                  numberOfPoints: result['numberOfPoints'],
-                                  password: result['password'],
-                                  userName: result['userName']);
-
-                              allUsers.add(registredUser);
-                            });
-                          });
-
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                UserRangList(allUsers, currentUser)));
+                                UserRangList(currentUser)));
 
                         print("OVO TAP NA CONTAINER users");
                       },
