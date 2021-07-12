@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/main.dart';
 import 'package:planinarska_obuka/models/content.dart';
 import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/screens/all_quizzes_screen.dart';
 import 'package:planinarska_obuka/screens/users_rang_list.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
@@ -120,6 +121,11 @@ class _MainScreenPage extends State<MainScreenPage> {
                     child: InkWell(
                       onTap: () {
                         print("OVO TAP NA CONTAINER quizzes");
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                AllQUizzesScreen(currentUser)));
+
                       },
                       child: Container(
                         width: double.infinity,
