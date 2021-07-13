@@ -78,7 +78,7 @@ class _AllQUizzesPage extends State<AllQuizzesPage> {
           itemCount: quizzes.length,
           itemBuilder: (context, index) {
             print(quizzes[index].nameOfQuiz);
-            return QuizWidget(quizzes[index]);
+            return QuizWidget(quizzes[index], currentUser);
           },
         ));
   }

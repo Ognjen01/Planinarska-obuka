@@ -8,6 +8,8 @@ class Question{
   String answer2;
   String answer3;
   String description;
+  List<String> answers = [];
+  int correctAnswerIndex;
   
 
   Question({
@@ -17,6 +19,15 @@ class Question{
     @required this.answer2,
     @required this.answer3,
     @required this.description
-  });
+  }){
+    this.answers.add(this.correctAnswer);
+    this.answers.add(this.answer1);
+    this.answers.add(this.answer2);
+    this.answers.add(this.answer3);
+
+    this.answers.sort();
+    this.correctAnswerIndex = this.answers.indexOf(this.correctAnswer);
+
+  }
   
 }
