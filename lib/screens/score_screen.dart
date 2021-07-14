@@ -2,43 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:planinarska_obuka/controllers/question_controller.dart';
 import 'package:planinarska_obuka/models/question.dart';
+import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/screens/all_quizzes_screen.dart';
 
 class ScoreScreen extends StatelessWidget {
-
-  List<Question> questions;
-  ScoreScreen(this.questions);
+  User currentUser;
+  ScoreScreen(this.currentUser);
 
   @override
   Widget build(BuildContext context) {
-    QuestionController _qnController = Get.put(QuestionController(questions));
-        return Scaffold(
-          body: Stack(
-            fit: StackFit.expand,
+    QuestionController _qnController = Get.put(QuestionController.empty());
+    print("Score ekran inicijalizovan");
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Column(
             children: [
-              Column(
-                children: [
-                  Spacer(flex: 3),
-                  Text(
-                    "Broj bodova: ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        .copyWith(color: Color(0xff080947)),
+              Spacer(flex: 3),
+              Text(
+                "Broj bodova: ",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(color: Color(0xff080947)),
+              ),
+              Spacer(),
+              Text(
+                "${0}/${_qnController.numOfQuestions}", // Tačni odgovori ne rade kako treba, implementirati
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: Color(0xff080947)),
+              ),
+              Spacer(),
+              SizedBox(
+                width: 150.0,
+                height: 50.0,
+                child: new RaisedButton(
+                  color: Color(0xff9dcbbc),
+                  child: new Text(
+                    'Nazad na obuke',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff080947)),
                   ),
-                  Spacer(),
-                  Text(
-                    "${_qnController.correctAns}/${_qnController.questions.length}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        .copyWith(color: Color(0xff080947)),
-                  ),
-                  Spacer(flex: 3),
-                ],
-              )
+                  onPressed: () {
+                    
+                    _qnController.onClose();
+                    
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AllQUizzesScreen(currentUser)));
+                    
+                  },
+                ),
+              ),
+              Spacer(flex: 3),
             ],
-          ),
-        );
-      }
-    
+          )
+        ],
+      ),
+    );
+  }
 }

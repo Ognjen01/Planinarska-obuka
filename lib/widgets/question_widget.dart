@@ -20,7 +20,7 @@ class QuestionWidget extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: Container(
                 child: Text(
                   "Slika",
@@ -30,7 +30,7 @@ class QuestionWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ), // Umjesto texta ide link do slike...
                 width: double.infinity,
-                height: 300.0,
+                height: 200.0,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                     color: Color(0xff080947),
@@ -39,7 +39,7 @@ class QuestionWidget extends StatelessWidget {
               ),
             ), // Slika
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(6.0),
               child: Container(
                 child: Text(
                   question
@@ -58,18 +58,20 @@ class QuestionWidget extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
             ), // Pitanje
-            Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 0),
-                child: Column(children: <Widget>[
-                  // Potrebno je dinamičko učitavanje
-                  ...List.generate(
-                      question.answers.length,
-                      (index) => AswerWidget(
-                            index: index,
-                            text: question.answers[index],
-                            press: () => _controller.checkAns(question, index),
-                          ))
-                ])),
+            SingleChildScrollView(
+                          child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0),
+                  child: Column(children: <Widget>[
+                    // Potrebno je dinamičko učitavanje
+                    ...List.generate(
+                        question.answers.length,
+                        (index) => AswerWidget(
+                              index: index,
+                              text: question.answers[index],
+                              press: () => _controller.checkAns(question, index),
+                            ))
+                  ])),
+            ),
           ]),
         ),
       ),

@@ -64,12 +64,11 @@ class _MainScreenPage extends State<MainScreenPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xff080947)),
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => MyApp())
-                  // TODO: Provjeriti ovakvu implementanciju
-                  ),
-        ),
+            icon: Icon(Icons.logout, color: Color(0xff080947)),
+            onPressed: () {
+            }
+            // TODO: Provjeriti ovakvu implementanciju
+            ),
         title: Text(
           "Planinarska obuka",
           style: TextStyle(
@@ -125,7 +124,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 AllQUizzesScreen(currentUser)));
-
                       },
                       child: Container(
                         width: double.infinity,
@@ -150,10 +148,8 @@ class _MainScreenPage extends State<MainScreenPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                UserRangList(currentUser)));
+                            builder: (context) => UserRangList(currentUser)));
 
                         print("OVO TAP NA CONTAINER users");
                       },

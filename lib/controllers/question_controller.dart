@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:planinarska_obuka/models/question.dart';
+import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/screens/score_screen.dart';
 
 // We use get package for our state management
@@ -10,41 +11,60 @@ class QuestionController extends GetxController
     with SingleGetTickerProviderMixin {
   // Lets animated our progress bar
 
-  AnimationController _animationController;
-  Animation _animation;
+  AnimationController animationController;
+  Animation animation;
   // so that we can access our animation outside
-  Animation get animation => this._animation;
+  Animation get animation1 => this.animation;
 
-  PageController _pageController;
-  PageController get pageController => this._pageController;
-  List<Question> questions;
-  QuestionController(this.questions);
-  QuestionController.empty();
+  PageController pageController;
+  PageController get pageController1 => this.pageController;
+  List<Question> questions = [];
+  User currentUser;
+  QuestionController(this.currentUser) {
+    print("CONTROLLER inicijalizacija sa podacima");
+  }
+  QuestionController.empty() {
+    print("CONTROLLER empty");
+  }
 
-  bool _isAnswered = false;
-  bool get isAnswered => this._isAnswered;
+  int numOfQuestions;
 
-  int _correctAns;
-  int get correctAns => this._correctAns;
 
-  int _selectedAns;
-  int get selectedAns => this._selectedAns;
+  bool isAnswered = false;
+  bool get isAnswered1 => this.isAnswered;
+
+  int correctAns;
+  int get correctAns1 => this.correctAns;
+
+  int selectedAns;
+  int get selectedAns1 => this.selectedAns;
 
   // for more about obs please check documentation
-  RxInt _questionNumber = 1.obs;
-  RxInt get questionNumber => this._questionNumber;
+  RxInt questionNumber = 1.obs;
+  RxInt get questionNumber1 => this.questionNumber;
 
-  int _numOfCorrectAns = 0;
-  int get numOfCorrectAns => this._numOfCorrectAns;
+  int numOfCorrectAns = 0;
+  int get numOfCorrectAns1 => this.numOfCorrectAns;
+
+  void setQuestionList(List<Question> list) {
+    this.questions = list;
+    pageController = new PageController();
+    numOfCorrectAns = 0;
+    questionNumber = 1.obs;
+    isAnswered = false;
+    numOfQuestions = list.length;
+    //update();
+  }
 
   // called immediately after the widget is allocated memory
   @override
   void onInit() {
+    print("CONTROLLER inicijalizacija");
     // Our animation duration is 60 s
     // so our plan is to fill the progress bar within 60s
-    _animationController =
-        AnimationController(duration: Duration(seconds: 60), vsync: this);
-    _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
+    animationController =
+        AnimationController(duration: Duration(seconds: 90), vsync: this);
+    animation = Tween<double>(begin: 0, end: 1).animate(animationController)
       ..addListener(() {
         // update like setState
         update();
@@ -52,8 +72,8 @@ class QuestionController extends GetxController
 
     // start our animation
     // Once 60s is completed go to the next qn
-    _animationController.forward().whenComplete(nextQuestion);
-    _pageController = PageController();
+    animationController.forward().whenComplete(nextQuestion);
+    pageController = PageController();
     super.onInit();
   }
 
@@ -61,23 +81,26 @@ class QuestionController extends GetxController
   @override
   void onClose() {
     super.onClose();
-    _animationController.dispose();
-    _pageController.dispose();
+    //animationController.dispose();
+    //pageController.dispose();
+    //super.dispose();
   }
 
   void checkAns(Question question, int selectedIndex) {
+    print("CONTROLLER provjera odgovora");
     // because once user press any option then it will run
-    _isAnswered = true;
-    _correctAns = question.correctAnswerIndex;
-    _selectedAns = selectedIndex;
+    isAnswered = true;
+    correctAns = question.correctAnswerIndex;
+    selectedAns = selectedIndex;
 
-    if (_correctAns == _selectedAns) {
-      _numOfCorrectAns++;
+    if (correctAns == selectedAns) {
+      numOfCorrectAns++;
       print("Tacan odgovor");
-    } ;
+    }
+    ;
 
     // It will stop the counter
-    _animationController.stop();
+    animationController.stop();
     update();
 
     // Once user select an ans after 3s it will go to the next qn
@@ -87,24 +110,30 @@ class QuestionController extends GetxController
   }
 
   void nextQuestion() {
-    if (_questionNumber.value != questions.length) {
-      _isAnswered = false;
-      _pageController.nextPage(
+    print("CONTROLLER sledeće pitanje");
+    if (questionNumber.value != questions.length) {
+      isAnswered = false;
+      pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);
 
       // Reset the counter
-      _animationController.reset();
+      animationController.reset();
 
       // Then start it again
       // Once timer is finish go to the next qn
-      _animationController.forward().whenComplete(nextQuestion);
-    } else {
+      animationController.forward().whenComplete(nextQuestion);
+      updateTheQnNum(questionNumber.value);
+    } else if (questionNumber.value == questions.length) {
       // Get package provide us simple way to naviigate another page
-      Get.to(ScoreScreen(questions));
+      //_pageController.dispose();
+      //_animationController.dispose();
+      //questions.removeRange(0, questions.length);
+      print("Idemo na score screen");
+      Get.to(() => ScoreScreen(currentUser));
     }
   }
 
   void updateTheQnNum(int index) {
-    _questionNumber.value = index + 1;
+    questionNumber.value = index + 1;
   }
 }

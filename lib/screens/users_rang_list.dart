@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/models/user_list.dart';
 import 'package:planinarska_obuka/screens/main_screen.dart';
+import 'package:planinarska_obuka/widgets/rang_widget.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
 
 class UserRangList extends StatelessWidget {
@@ -79,7 +80,7 @@ class _RangListPage extends State<RangListPage> {
         body: ListView.builder(
           itemCount: users.length,
           itemBuilder: (context, index) {
-            return UserProfileWidget(user: users[index]);
+            return RangWidget(user: users[index], rang: index + 1);
           },
         ));
   }
