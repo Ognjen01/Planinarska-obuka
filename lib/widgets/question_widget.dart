@@ -21,20 +21,17 @@ class QuestionWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: Container(
-                child: Text(
-                  "Slika",
-                  style: TextStyle(
-                      color: Color(0xffe9edf0),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ), // Umjesto texta ide link do slike...
+                // Umjesto texta ide link do slike...
                 width: double.infinity,
                 height: 200.0,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Color(0xff080947),
+                    //color: Color(0xff080947),
                     shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    image: DecorationImage(
+                        image: NetworkImage('${question.illustrationUrl}'),
+                        fit: BoxFit.cover)),
               ),
             ), // Slika
             Padding(
@@ -78,7 +75,9 @@ class QuestionWidget extends StatelessWidget {
                                         actions: [
                                           FlatButton(
                                               onPressed: () {
-                                                Navigator.of(context, rootNavigator: true).pop();
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop();
                                                 _controller.checkAns(
                                                     question, index);
                                               },

@@ -111,6 +111,8 @@ class _AllQUizzesPage extends State<AllQuizzesPage> {
                                     answer2: result1['odgovor2'],
                                     answer3: result1['odgovor3'],
                                     description: result1['objasnjenje']);
+                                    newQuestion.illustrationUrl = result1["illustrationUrl"];
+                                    print(result1["illustrationUrl"] + " SLika pitanja");
                                 print("Drugi request unutra");
                                 print(newQuestion.question);
                                 quiz.listOfQuestions.add(newQuestion);

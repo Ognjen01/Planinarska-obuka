@@ -10,6 +10,7 @@ class Question{
   String description;
   List<String> answers = [];
   int correctAnswerIndex;
+  String illustrationUrl;
   
 
   Question({
