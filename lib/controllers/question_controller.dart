@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
@@ -22,6 +23,7 @@ class QuestionController extends GetxController
   User currentUser;
   QuestionController(this.currentUser) {
     print("CONTROLLER inicijalizacija sa podacima");
+  
   }
   QuestionController.empty() {
     print("CONTROLLER empty");
@@ -53,7 +55,10 @@ class QuestionController extends GetxController
     questionNumber = 1.obs;
     isAnswered = false;
     numOfQuestions = list.length;
-    //update();
+
+  
+            
+    
   }
 
   // called immediately after the widget is allocated memory
@@ -68,6 +73,7 @@ class QuestionController extends GetxController
       ..addListener(() {
         // update like setState
         update();
+
       });
 
     // start our animation
@@ -103,8 +109,8 @@ class QuestionController extends GetxController
     animationController.stop();
     update();
 
-    // Once user select an ans after 3s it will go to the next qn
-    Future.delayed(Duration(seconds: 3), () {
+    // Once user select an ans after 1s it will go to the next qn
+    Future.delayed(Duration(seconds: 1,), () {
       nextQuestion();
     });
   }

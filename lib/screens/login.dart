@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/screens/main_screen.dart';
 import 'package:planinarska_obuka/screens/registration.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -17,9 +19,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController myController1 = new TextEditingController();
   TextEditingController myController2 = new TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
+    checkInternetCOnnection();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -72,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                     print("Pristupanje bazi pocinje");
 
                     try {
-
                       bool userExist = false;
 
                       FirebaseFirestore.instance.collection('users')
@@ -84,13 +87,16 @@ class _LoginPageState extends State<LoginPage> {
                             if ((myController1.text == result['userName']) &&
                                 (myController2.text == result['password'])) {
                               print("Nadjen je korisnik: ${result.data()}");
-                              User currentUser = User(name: result['name'], numberOfPoints: result['numberOfPoints'], password: result['password'], userName: result['userName']);
+                              User currentUser = User(
+                                  name: result['name'],
+                                  numberOfPoints: result['numberOfPoints'],
+                                  password: result['password'],
+                                  userName: result['userName']);
                               Navigator.of(context).push(MaterialPageRoute(
-                                  
-                                  builder: (context) => MainScreen(currentUser: currentUser)));
+                                  builder: (context) =>
+                                      MainScreen(currentUser: currentUser)));
                             }
-                          }
-                          );
+                          });
                         });
 
                       if (!userExist) {
@@ -130,5 +136,34 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void checkInternetCOnnection() async {
+    var result = await Connectivity().checkConnectivity();
+    switch (result) {
+      case ConnectivityResult.mobile:
+        print("Mobile konekcija");
+        break;
+      case ConnectivityResult.wifi:
+        print("Mobile konekcija");
+        break;
+      case ConnectivityResult.none:
+        WidgetsBinding.instance.addPostFrameCallback((_) =>
+            Get.dialog(AlertDialog(
+              title: Text("Greška"),
+              content: 
+                    Text("Uređaj nije konektovan na internet, molimo pokušajte ponovo!"),
+                  
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child:
+                        Text("OK", style: TextStyle(color: Color(0xff080947))))
+              ],
+            )));
+        break;
+    }
   }
 }

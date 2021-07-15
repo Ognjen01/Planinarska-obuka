@@ -14,8 +14,7 @@ class QuestionScreen extends StatelessWidget {
   List<Question> questions = [];
 
   QuestionScreen({@required this.currenUser, @required this.selectedQUiz}) {
-    
-    // Algorythm takes 10 random questions from list of all qestions in quiz: 
+    // Algorythm takes 10 random questions from list of all qestions in quiz:
 
     for (var i = 0; i < 10; i++) {
       int min = 0;
@@ -30,10 +29,10 @@ class QuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuestionController _questionController;
-    //_questionController.refresh();
     _questionController = Get.put(QuestionController(currenUser));
     _questionController.setQuestionList(questions);
-    //_questionController.refresh();
+
+    // Ovdje pokrenuti alert dialog kako se igra kviz  
 
     return Scaffold(
         extendBodyBehindAppBar: true,

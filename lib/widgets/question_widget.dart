@@ -9,7 +9,6 @@ class QuestionWidget extends StatelessWidget {
   Question question;
   List<Question> questions;
   QuestionWidget({@required this.question, this.questions});
-  // Formirati listu odgovora
   QuestionController _controller = Get.put(QuestionController.empty());
 
   @override
@@ -42,8 +41,7 @@ class QuestionWidget extends StatelessWidget {
               padding: const EdgeInsets.all(6.0),
               child: Container(
                 child: Text(
-                  question
-                      .question, // Dodati random broj koji odabira rendom pitanje .lenght obavezno
+                  question.question,
                   style: TextStyle(
                       color: Color(0xff080947),
                       fontSize: 20,
@@ -59,16 +57,39 @@ class QuestionWidget extends StatelessWidget {
               ),
             ), // Pitanje
             SingleChildScrollView(
-                          child: Padding(
+              child: Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0),
                   child: Column(children: <Widget>[
-                    // Potrebno je dinamičko učitavanje
                     ...List.generate(
                         question.answers.length,
                         (index) => AswerWidget(
-                              index: index,
-                              text: question.answers[index],
-                              press: () => _controller.checkAns(question, index),
+                            index: index,
+                            text: question.answers[index],
+                            press: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                        title: Text("Objašenjenje",
+                                            style: TextStyle(
+                                                color: Color(0xff080947))),
+                                        content: Text("${question.description}",
+                                            style: TextStyle(
+                                                color: Color(0xff080947))),
+                                        actions: [
+                                          FlatButton(
+                                              onPressed: () {
+                                                Navigator.of(context, rootNavigator: true).pop();
+                                                _controller.checkAns(
+                                                    question, index);
+                                              },
+                                              child: Text("OK",
+                                                  style: TextStyle(
+                                                      color:
+                                                          Color(0xff080947))))
+                                        ],
+                                      ),
+                                  barrierDismissible: false);
+                            } // Ovdje pokrenuti alert za objašnjenje
                             ))
                   ])),
             ),
