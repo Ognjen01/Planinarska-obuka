@@ -13,6 +13,7 @@ class ScoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     QuestionController _qnController = Get.put(QuestionController.empty());
     print("Score ekran inicijalizovan");
+    currentUser.numberOfPoints += _qnController.numOfCorrectAns;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -29,7 +30,7 @@ class ScoreScreen extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "${0}/${_qnController.numOfQuestions}", // Tačni odgovori ne rade kako treba, implementirati
+                "${_qnController.numOfCorrectAns}/${_qnController.numOfQuestions}",
                 style: Theme.of(context)
                     .textTheme
                     .headline4

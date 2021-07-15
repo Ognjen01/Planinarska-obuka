@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:planinarska_obuka/controllers/question_controller.dart';
@@ -12,12 +14,17 @@ class QuestionScreen extends StatelessWidget {
   List<Question> questions = [];
 
   QuestionScreen({@required this.currenUser, @required this.selectedQUiz}) {
-    this.selectedQUiz.listOfQuestions.forEach((element) {
-      this.questions.add(element);
+    
+    // Algorythm takes 10 random questions from list of all qestions in quiz: 
 
-      // Ovdje implementirati odabir 10 random pitanja!!!!
-      
-    });
+    for (var i = 0; i < 10; i++) {
+      int min = 0;
+      int max = selectedQUiz.listOfQuestions.length;
+      Random rnd = new Random();
+      int generatedIndex = min + rnd.nextInt(max - min);
+      questions.add(selectedQUiz.listOfQuestions[generatedIndex]);
+      print("$generatedIndex is in the range of $min and $max");
+    }
   }
 
   @override
@@ -25,7 +32,7 @@ class QuestionScreen extends StatelessWidget {
     QuestionController _questionController;
     //_questionController.refresh();
     _questionController = Get.put(QuestionController(currenUser));
-    _questionController.setQuestionList(selectedQUiz.listOfQuestions);
+    _questionController.setQuestionList(questions);
     //_questionController.refresh();
 
     return Scaffold(
