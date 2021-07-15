@@ -14,6 +14,9 @@ class ScoreScreen extends StatelessWidget {
     QuestionController _qnController = Get.put(QuestionController.empty());
     print("Score ekran inicijalizovan");
     currentUser.numberOfPoints += _qnController.numOfCorrectAns;
+
+    // Šalje se request koji traži korisnika po korisničkom imenu i lozinci i zatim dodaje mu sakupljene bodove
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

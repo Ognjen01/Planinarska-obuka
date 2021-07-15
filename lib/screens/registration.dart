@@ -83,9 +83,63 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff080947)),
                   ),
-                  onPressed: () {
-
+                  onPressed: () async {
                     try {
+                      bool userExist = false;
+
+                      await FirebaseFirestore.instance.collection('users')
+                        ..get().then((querySnapshot) {
+                          querySnapshot.docs.forEach((result) {
+                            print("===============================");
+                            print(result.data());
+
+                            if (myController2.text == result['userName']) {
+                              print(
+                                  "Nadjen je korisnik: ${result.data()} sa istim korisničkim imenom");
+
+                              userExist = true;
+                            }
+                          });
+                        }).then((value) => {
+                              if (userExist)
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                            title: Text("Greška"),
+                                            content: Text(
+                                                "Već postoji korisnik sa istim korisničkim imenom"),
+                                          ))
+                                }
+                              else if(!userExist)
+                                {
+                                  FirebaseFirestore.instance
+                                    ..collection("users").add({
+                                      "name": myController1.text,
+                                      "numberOfPoints": 0,
+                                      "userName": myController2.text,
+                                      "password": myController3.text
+                                    }).then((value) {
+                                      print(value.id);
+                                      AlertDialog(
+                                          content: Text(
+                                              "Uspješno izvršena registracija!"));
+
+                                      User newUser = User(
+                                          name: myController1.text,
+                                          userName: myController2.text,
+                                          password: myController3.text,
+                                          numberOfPoints: 0);
+
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => MainScreen(
+                                                  currentUser: newUser)));
+                                    })
+                                }
+                            });
+
+                      /*
                       FirebaseFirestore.instance
                         ..collection("users").add({
                           "name": myController1.text,
@@ -96,6 +150,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           print(value.id);
                           AlertDialog(
                               content: Text("Uspješno izvršena registracija!"));
+                              
 
                           User newUser = User(
                               name: myController1.text,
@@ -106,7 +161,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   
                                   builder: (context) => MainScreen(currentUser: newUser)));
+                                  
                         });
+                        */
                     } catch (e) {
                       AlertDialog(
                         content: Text(

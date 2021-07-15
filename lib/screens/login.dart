@@ -19,7 +19,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController myController1 = new TextEditingController();
   TextEditingController myController2 = new TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xff080947)),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     // TODO: Provjera konekcije
 
                     // TODO: Provjera da li postoji registrovani korisnika sa unesenim informacijama
@@ -78,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                     try {
                       bool userExist = false;
 
-                      FirebaseFirestore.instance.collection('users')
+                      await FirebaseFirestore.instance.collection('users')
                         ..get().then((querySnapshot) {
                           querySnapshot.docs.forEach((result) {
                             print("===============================");
@@ -92,24 +91,33 @@ class _LoginPageState extends State<LoginPage> {
                                   numberOfPoints: result['numberOfPoints'],
                                   password: result['password'],
                                   userName: result['userName']);
+                                  currentUser.id = result.id;
+                                  userExist = true;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       MainScreen(currentUser: currentUser)));
                             }
                           });
-                        });
-
-                      if (!userExist) {
-                        AlertDialog(
-                          content: Text(
-                              "Došlo je go greške, molimo pokušajte ponovo!"),
-                        );
-                      }
+                        }).then((value) => {
+                              if (!userExist)
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog(
+                                            title: Text("Nepostojeći korisnik"),
+                                            content: Text(
+                                                "Molimo registrujte novi nalog ili unesite postojeći."),
+                                          ))
+                                }
+                            });
                     } catch (Exception) {
-                      AlertDialog(
-                        content: Text(
-                            "Došlo je go greške, molimo pokušajte ponovo!"),
-                      );
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                title: Text("Greška"),
+                                content: Text(
+                                    "Došlo je go greške, molimo pokušajte ponovo!"),
+                              ));
                     }
 
                     print("Pristupanje bazi završeno");
@@ -148,21 +156,20 @@ class _LoginPageState extends State<LoginPage> {
         print("Mobile konekcija");
         break;
       case ConnectivityResult.none:
-        WidgetsBinding.instance.addPostFrameCallback((_) =>
-            Get.dialog(AlertDialog(
-              title: Text("Greška"),
-              content: 
-                    Text("Uređaj nije konektovan na internet, molimo pokušajte ponovo!"),
-                  
-              actions: [
-                FlatButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
-                    child:
-                        Text("OK", style: TextStyle(color: Color(0xff080947))))
-              ],
-            )));
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => Get.dialog(AlertDialog(
+                  title: Text("Greška"),
+                  content: Text(
+                      "Uređaj nije konektovan na internet, molimo pokušajte ponovo!"),
+                  actions: [
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        child: Text("OK",
+                            style: TextStyle(color: Color(0xff080947))))
+                  ],
+                )));
         break;
     }
   }

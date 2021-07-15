@@ -5,6 +5,7 @@ class User {
   String userName;
   String password;
   int numberOfPoints;
+  String id;
 
   User(
       {@required this.name,

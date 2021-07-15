@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:planinarska_obuka/main.dart';
 import 'package:planinarska_obuka/models/content.dart';
 import 'package:planinarska_obuka/models/user.dart';
@@ -63,17 +66,14 @@ class _MainScreenPage extends State<MainScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.logout, color: Color(0xff080947)),
-            onPressed: () {
-            }
-            // TODO: Provjeriti ovakvu implementanciju
+        
+        title: Center(
+          child: Text(
+            "Planinarska obuka",
+            style: TextStyle(
+              color: Color(0xff080947),
+              fontWeight: FontWeight.bold,
             ),
-        title: Text(
-          "Planinarska obuka",
-          style: TextStyle(
-            color: Color(0xff080947),
-            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: const Color(0xff9dcbbc),
