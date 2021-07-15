@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:planinarska_obuka/controllers/question_controller.dart';
@@ -13,9 +14,25 @@ class ScoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     QuestionController _qnController = Get.put(QuestionController.empty());
     print("Score ekran inicijalizovan");
-    currentUser.numberOfPoints += _qnController.numOfCorrectAns;
+    int newPointsNumber =
+        currentUser.numberOfPoints += _qnController.numOfCorrectAns;
 
-    // Šalje se request koji traži korisnika po korisničkom imenu i lozinci i zatim dodaje mu sakupljene bodove
+    WidgetsBinding.instance.addPostFrameCallback((_) async => {
+          await FirebaseFirestore.instance.collection('users')
+            ..get().then((querySnapshot) {
+              querySnapshot.docs.forEach((result) async {
+                if ((currentUser.userName == result['userName']) &&
+                    (currentUser.password == result['password'])) {
+                  print("Nadjen je korisnik: ${result.data()}");
+
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc('${result.id}')
+                      .update({'numberOfPoints': newPointsNumber});
+                }
+              });
+            })
+        });
 
     return Scaffold(
       body: Stack(
@@ -51,12 +68,10 @@ class ScoreScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold, color: Color(0xff080947)),
                   ),
                   onPressed: () {
-                    
                     _qnController.onClose();
-                    
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AllQUizzesScreen(currentUser)));
-                    
+
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AllQUizzesScreen(currentUser)));
                   },
                 ),
               ),

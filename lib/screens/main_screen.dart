@@ -66,7 +66,9 @@ class _MainScreenPage extends State<MainScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
+        leading: IconButton(
+            icon: Icon(Icons.logout, color: Color(0xff080947)),
+            onPressed: () => {exit(0)}),
         title: Center(
           child: Text(
             "Planinarska obuka",
