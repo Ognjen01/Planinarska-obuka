@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/models/map.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 class MapScreen extends StatelessWidget {
   Map map;
@@ -16,7 +17,8 @@ class MapScreen extends StatelessWidget {
         backgroundColor: Color(0xff9dcbbc),
         title: Text(
           map.name,
-          style: TextStyle(color: Color(0xff080947), fontWeight: FontWeight.bold),
+          style:
+              TextStyle(color: Color(0xff080947), fontWeight: FontWeight.bold),
         ),
       ),
       body: Center(
@@ -33,8 +35,11 @@ class MapScreen extends StatelessWidget {
             color: Color(0xff080947),
           ),
           backgroundColor: Color(0xff9dcbbc),
-          onPressed: () => {print("PREUZMANJE MAPE")
-          }),
+          onPressed: () async => {
+                await ImageDownloader.downloadImage(map.mapUrl),
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Uspješno preuzeta fotografija")))
+              }),
     );
   }
 }
