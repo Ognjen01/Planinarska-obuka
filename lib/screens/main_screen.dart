@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:planinarska_obuka/main.dart';
 import 'package:planinarska_obuka/models/content.dart';
 import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/screens/all_maps_screen.dart';
 import 'package:planinarska_obuka/screens/all_quizzes_screen.dart';
 import 'package:planinarska_obuka/screens/users_rang_list.dart';
 import 'package:planinarska_obuka/widgets/user_profile_widget.dart';
@@ -97,6 +98,9 @@ class _MainScreenPage extends State<MainScreenPage> {
                       onTap: () {
                         print("PROBA");
                         print("OVO TAP NA CONTAINER mape");
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AllMapsScreen(currentUser)));
                       },
                       child: Container(
                         width: double.infinity,
