@@ -70,13 +70,11 @@ class _MainScreenPage extends State<MainScreenPage> {
         leading: IconButton(
             icon: Icon(Icons.logout, color: Color(0xff080947)),
             onPressed: () => {exit(0)}),
-        title: Center(
-          child: Text(
-            "Planinarska obuka",
-            style: TextStyle(
-              color: Color(0xff080947),
-              fontWeight: FontWeight.bold,
-            ),
+        title: Text(
+          "Planinarska obuka",
+          style: TextStyle(
+            color: Color(0xff080947),
+            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: const Color(0xff9dcbbc),

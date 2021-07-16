@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:planinarska_obuka/models/map.dart';
 import 'package:planinarska_obuka/models/quiz.dart';
 import 'package:planinarska_obuka/models/user.dart';
+import 'package:planinarska_obuka/screens/map_screen.dart';
 import 'package:planinarska_obuka/screens/question_screen.dart';
 
 class MapWidget extends StatelessWidget {
@@ -19,6 +20,9 @@ class MapWidget extends StatelessWidget {
         child: InkWell(
           onTap: () {
             print("OVO TAP NA CONTAINER " + map.name);
+
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => MapScreen(map: map)));
           },
           child: Container(
             width: double.infinity,
