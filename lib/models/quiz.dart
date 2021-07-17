@@ -9,6 +9,5 @@ class Quiz {
   Quiz(
       {@required this.nameOfQuiz,
       @required this.coverPhotoUrl,
-      //this.listOfQuestions
       });
 }

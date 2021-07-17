@@ -41,12 +41,10 @@ class MainScreenPage extends StatefulWidget {
 }
 
 class _MainScreenPage extends State<MainScreenPage> {
-  // Ovaj dio zavisi od prijavljenog korisnika i requesta:
   User currentUser;
   _MainScreenPage({@required this.currentUser});
 
-  // TESTNI PODACI:
-
+  // Test data
   User user1 = new User(
       name: "Ognjen",
       userName: "ognjen01",
@@ -88,7 +86,6 @@ class _MainScreenPage extends State<MainScreenPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 UserProfileWidget(user: currentUser),
-
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -110,7 +107,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
-                            //color: Colors.indigo,
                             image: DecorationImage(
                                 image: AssetImage("assets/1.jpg"),
                                 fit: BoxFit.cover)),
@@ -139,7 +135,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
-                            //color: Colors.indigo,
                             image: DecorationImage(
                                 image: AssetImage("assets/2.jpg"),
                                 fit: BoxFit.cover)),
@@ -167,7 +162,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
-                            //color: Colors.indigo,
                             image: DecorationImage(
                                 image: AssetImage("assets/3.jpg"),
                                 fit: BoxFit.cover)),
@@ -175,7 +169,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                     ),
                   ),
                 ),
-                // Sadržaj početnog ekrana
               ],
             ),
           ),

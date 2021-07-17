@@ -33,7 +33,6 @@ class ContentWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.white))),
                 decoration: BoxDecoration(
-                    //color: Colors.indigo,
                     image: DecorationImage(
                         image: AssetImage(content.image), fit: BoxFit.cover)),
               ),

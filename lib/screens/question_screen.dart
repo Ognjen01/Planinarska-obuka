@@ -32,8 +32,6 @@ class QuestionScreen extends StatelessWidget {
     _questionController = Get.put(QuestionController(currenUser));
     _questionController.setQuestionList(questions);
 
-    // Ovdje pokrenuti alert dialog kako se igra kviz  
-
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(

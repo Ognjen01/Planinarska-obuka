@@ -67,7 +67,6 @@ class QuizWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.white))),
             decoration: BoxDecoration(
-                //color: Colors.indigo,
                 image: DecorationImage(
                     image: NetworkImage('${quiz.coverPhotoUrl}'),
                     fit: BoxFit.cover)),

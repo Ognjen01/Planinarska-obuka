@@ -21,19 +21,17 @@ class QuestionWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: Container(
-                // Umjesto texta ide link do slike...
                 width: double.infinity,
                 height: 200.0,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    //color: Color(0xff080947),
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     image: DecorationImage(
                         image: NetworkImage('${question.illustrationUrl}'),
                         fit: BoxFit.cover)),
               ),
-            ), // Slika
+            ),
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(
@@ -52,7 +50,7 @@ class QuestionWidget extends StatelessWidget {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
-            ), // Pitanje
+            ),
             SingleChildScrollView(
               child: Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0),
@@ -88,8 +86,7 @@ class QuestionWidget extends StatelessWidget {
                                         ],
                                       ),
                                   barrierDismissible: false);
-                            } // Ovdje pokrenuti alert za objašnjenje
-                            ))
+                            }))
                   ])),
             ),
           ]),

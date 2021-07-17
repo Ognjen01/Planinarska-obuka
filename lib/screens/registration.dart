@@ -34,7 +34,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Moguće je dodati strelicu za vraćanje na prethodnu stranicu, stranicu prijave
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Padding(
@@ -90,13 +89,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       await FirebaseFirestore.instance.collection('users')
                         ..get().then((querySnapshot) {
                           querySnapshot.docs.forEach((result) {
-                            print("===============================");
                             print(result.data());
 
                             if (myController2.text == result['userName']) {
-                              print(
-                                  "Nadjen je korisnik: ${result.data()} sa istim korisničkim imenom");
-
                               userExist = true;
                             }
                           });
@@ -111,7 +106,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                 "Već postoji korisnik sa istim korisničkim imenom"),
                                           ))
                                 }
-                              else if(!userExist)
+                              else if (!userExist)
                                 {
                                   FirebaseFirestore.instance
                                     ..collection("users").add({
@@ -138,32 +133,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     })
                                 }
                             });
-
-                      /*
-                      FirebaseFirestore.instance
-                        ..collection("users").add({
-                          "name": myController1.text,
-                          "numberOfPoints": 0,
-                          "userName": myController2.text,
-                          "password": myController3.text
-                        }).then((value) {
-                          print(value.id);
-                          AlertDialog(
-                              content: Text("Uspješno izvršena registracija!"));
-                              
-
-                          User newUser = User(
-                              name: myController1.text,
-                              userName: myController2.text,
-                              password: myController3.text,
-                              numberOfPoints: 0);
-
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  
-                                  builder: (context) => MainScreen(currentUser: newUser)));
-                                  
-                        });
-                        */
                     } catch (e) {
                       AlertDialog(
                         content: Text(

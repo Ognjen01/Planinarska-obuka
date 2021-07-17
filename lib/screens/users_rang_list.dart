@@ -30,15 +30,13 @@ class RangListPage extends StatefulWidget {
   RangListPage({@required this.currentUser});
 
   @override
-  _RangListPage createState() =>
-      _RangListPage(currentUser: currentUser);
+  _RangListPage createState() => _RangListPage(currentUser: currentUser);
 }
 
 class _RangListPage extends State<RangListPage> {
   User currentUser;
   List<User> users = [];
   _RangListPage({@required this.currentUser});
-
 
   @override
   void initState() {
@@ -85,8 +83,6 @@ class _RangListPage extends State<RangListPage> {
         ));
   }
 
-  // Async loading of users IMPORTANT!!!
-
   Future getUserList() async {
     List<User> allUsers = [];
     try {
@@ -111,7 +107,7 @@ class _RangListPage extends State<RangListPage> {
     }
   }
 
-  // Sorting algoryhm for user rang list: 
+  // Sorting algoryhm for user rang list:
   List<User> bubbleSort(List<User> list) {
     for (int i = 0; i < list.length; i++) {
       for (int j = 0; j < list.length - 1; j++) {

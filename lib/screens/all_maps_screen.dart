@@ -80,7 +80,7 @@ class _AllMapsPage extends State<AllMapsPage> {
           itemCount: allMaps.length,
           itemBuilder: (context, index) {
             print(allMaps[index].name);
-            return MapWidget(allMaps[index], currentUser); // Map Widget
+            return MapWidget(allMaps[index], currentUser);
           },
         ));
   }
@@ -93,8 +93,6 @@ class _AllMapsPage extends State<AllMapsPage> {
           .get()
           .then((querySnapshot) => {
                 querySnapshot.docs.forEach((result) {
-                  //print(result.id);
-
                   Map newMap = new Map(
                       coverPhotoUrl: result['coverPhotoUrl'],
                       mapUrl: result['mapUrl'],

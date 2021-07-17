@@ -12,7 +12,7 @@ class MapScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [],
         iconTheme: IconThemeData(
-          color: Color(0xff080947), //change your color here
+          color: Color(0xff080947),
         ),
         backgroundColor: Color(0xff9dcbbc),
         title: Text(

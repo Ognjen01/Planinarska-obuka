@@ -67,11 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold, color: Color(0xff080947)),
                   ),
                   onPressed: () async {
-                    // TODO: Provjera konekcije
-
-                    // TODO: Provjera da li postoji registrovani korisnika sa unesenim informacijama
-                    //       Slanje na početni ekran
-
                     print("Pristupanje bazi pocinje");
 
                     try {
@@ -91,8 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                                   numberOfPoints: result['numberOfPoints'],
                                   password: result['password'],
                                   userName: result['userName']);
-                                  currentUser.id = result.id;
-                                  userExist = true;
+                              currentUser.id = result.id;
+                              userExist = true;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       MainScreen(currentUser: currentUser)));
@@ -127,8 +122,6 @@ class _LoginPageState extends State<LoginPage> {
               Spacer(flex: 1),
               InkWell(
                 onTap: () {
-                  // TODO: Provjera konekcije
-
                   print("REGISTRACIJA");
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => Registration()));
