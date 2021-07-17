@@ -1,16 +1,15 @@
-# planinarska_obuka
+# Planinarska obuka (Mountaineering training)
 
-Obuka snalazenja u prirodi
+This app is used as a treaining app for mountaineers. Here they can find basic therminology, rules in mounatineering, maps and much more.
 
-## Getting Started
+## Details
 
-This project is a starting point for a Flutter application.
+This project is done Flutter technology for cross platform development.
 
-A few resources to get you started if this is your first Flutter project:
+- [Google Play Store](https://flutter.dev/docs/get-started/codelab)
+- [Play Store](https://flutter.dev/docs/get-started/codelab)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+It's not allowed any copying of this project.
+All rights reserved Ognjen Lazić 
+contact info: 
+lazicognjen2001@gmail.com
