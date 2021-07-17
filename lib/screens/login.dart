@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/screens/main_screen.dart';
@@ -20,9 +21,15 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController myController1 = new TextEditingController();
   TextEditingController myController2 = new TextEditingController();
 
+  
+
   @override
   Widget build(BuildContext context) {
     checkInternetCOnnection();
+    SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
