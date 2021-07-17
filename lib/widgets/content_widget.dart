@@ -33,6 +33,7 @@ class ContentWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: Colors.white))),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                     image: DecorationImage(
                         image: AssetImage(content.image), fit: BoxFit.cover)),
               ),

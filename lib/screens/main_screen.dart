@@ -100,8 +100,9 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
-                                image: AssetImage("assets/1.jpg"),
+                                image: AssetImage("assets/5.jpg"),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -126,8 +127,9 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
-                                image: AssetImage("assets/2.jpg"),
+                                image: AssetImage("assets/4.jpg"),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -151,8 +153,9 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
-                                image: AssetImage("assets/3.jpg"),
+                                image: AssetImage("assets/17.jpg"),
                                 fit: BoxFit.cover)),
                       ),
                     ),

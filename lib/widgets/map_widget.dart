@@ -29,6 +29,7 @@ class MapWidget extends StatelessWidget {
             height: 200.0,
             child: Center(child: Text("${map.name}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28, color: Color(0xffffffff))),),
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
                     image: NetworkImage('${map.coverPhotoUrl}'),
                     fit: BoxFit.cover)),
