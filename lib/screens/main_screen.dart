@@ -52,13 +52,9 @@ class _MainScreenPage extends State<MainScreenPage> {
       numberOfPoints: 10);
 
   List<Content> content = [
-    Content(
-        name: "Mape planinarskih staza",
-        image: "assets/1.jpg",
-        requestURL: "mape"),
+    Content(name: "Mape planinarskih staza", image: "assets/1.jpg",requestURL: "mape"),
     Content(name: "Obuka", image: "assets/2.jpg", requestURL: "quizzes"),
-    Content(
-        name: "Rang lista igrača", image: "assets/3.jpg", requestURL: "users")
+    Content(name: "Rang lista igrača", image: "assets/3.jpg", requestURL: "users")
   ];
 
   @override
@@ -91,9 +87,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        print("PROBA");
-                        print("OVO TAP NA CONTAINER mape");
-
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => AllMapsScreen(currentUser)));
                       },
@@ -119,8 +112,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        print("OVO TAP NA CONTAINER quizzes");
-
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
                                 AllQUizzesScreen(currentUser)));
@@ -149,8 +140,6 @@ class _MainScreenPage extends State<MainScreenPage> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => UserRangList(currentUser)));
-
-                        print("OVO TAP NA CONTAINER users");
                       },
                       child: Container(
                         width: double.infinity,

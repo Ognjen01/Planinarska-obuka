@@ -134,13 +134,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 }
                             });
                     } catch (e) {
-                      AlertDialog(
-                        content: Text(
-                            "Došlo je go greške, molimo pokušajte ponovo!"),
-                      );
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                title: Text("Greška"),
+                                content: Text(
+                                    "Došlo je do greške, molimo pokušajte ponovo!"),
+                              ));
                     }
-
-                    print("REGISTRACIJA");
                   },
                 ),
               ),

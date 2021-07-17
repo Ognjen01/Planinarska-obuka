@@ -56,8 +56,6 @@ flutter_native_splash:
   ios: true
   
   
-flutter_launcher_name:
-  name: "Planinarska Obuka"
 
 
 flutter_icons:

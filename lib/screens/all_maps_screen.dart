@@ -105,7 +105,13 @@ class _AllMapsPage extends State<AllMapsPage> {
       return allMaps;
     } catch (e) {
       print(e.toString());
-      return (null);
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("Greška"),
+                content: Text(
+                    "Došlo je do greške, molimo pokušajte ponovo!"),
+              ));
     }
   }
 }

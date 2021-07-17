@@ -125,7 +125,13 @@ class _AllQUizzesPage extends State<AllQuizzesPage> {
       return allQuizzes;
     } catch (e) {
       print(e.toString());
-      return (null);
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("Greška"),
+                content: Text(
+                    "Došlo je do greške, molimo pokušajte ponovo!"),
+              ));
     }
   }
 

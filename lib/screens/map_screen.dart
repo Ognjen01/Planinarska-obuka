@@ -36,7 +36,15 @@ class MapScreen extends StatelessWidget {
           ),
           backgroundColor: Color(0xff9dcbbc),
           onPressed: () async => {
-                await ImageDownloader.downloadImage(map.mapUrl),
+                await ImageDownloader.downloadImage(map.mapUrl).catchError((e) {
+                  showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            title: Text("Greška"),
+                            content: Text(
+                                "Došlo je do greške, molimo pokušajte ponovo!"),
+                          ));
+                }),
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Uspješno preuzeta fotografija")))
               }),

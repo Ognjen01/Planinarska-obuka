@@ -39,6 +39,8 @@ class QuizWidget extends StatelessWidget {
                             Text("Svako pitanje nosi po jedan bod."),
                             Text(
                                 "Ne postoje negativni bodovi, niti oduzimanje postojećeg broja bodova."),
+                                Text(
+                                "Ukoliko prekinete kviz vaši bodovi neće biti uračunati!"),
                             Text(
                               "Srećno!",
                               style: TextStyle(
@@ -68,7 +70,7 @@ class QuizWidget extends StatelessWidget {
                         color: Colors.white))),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage('${quiz.coverPhotoUrl}'),
+                    image: NetworkImage('${quiz.coverPhotoUrl}'), 
                     fit: BoxFit.cover)),
           ),
         ),

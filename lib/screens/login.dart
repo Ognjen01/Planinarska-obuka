@@ -75,9 +75,6 @@ class _LoginPageState extends State<LoginPage> {
                       await FirebaseFirestore.instance.collection('users')
                         ..get().then((querySnapshot) {
                           querySnapshot.docs.forEach((result) {
-                            print("===============================");
-                            print(result.data());
-
                             if ((myController1.text == result['userName']) &&
                                 (myController2.text == result['password'])) {
                               print("Nadjen je korisnik: ${result.data()}");
@@ -144,9 +141,11 @@ class _LoginPageState extends State<LoginPage> {
     switch (result) {
       case ConnectivityResult.mobile:
         print("Mobile konekcija");
+        
         break;
       case ConnectivityResult.wifi:
         print("Mobile konekcija");
+        
         break;
       case ConnectivityResult.none:
         WidgetsBinding.instance
@@ -163,6 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(color: Color(0xff080947))))
                   ],
                 )));
+        
         break;
     }
   }
