@@ -86,6 +86,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     try {
                       bool userExist = false;
 
+                      if(myController1.text.isEmpty || myController2.text.isEmpty || myController3.text.isEmpty){
+                        throw new Exception();
+                      }
+
                       await FirebaseFirestore.instance.collection('users')
                         ..get().then((querySnapshot) {
                           querySnapshot.docs.forEach((result) {
