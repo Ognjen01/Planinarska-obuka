@@ -35,8 +35,10 @@ class QuestionWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: Container(
+                
                 child: Text(
                   question.question,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color(0xff080947),
                       fontSize: 20,
