@@ -37,7 +37,7 @@ class AswerWidget extends StatelessWidget {
                 onTap: press,
                 child: Container(
                   child: Text(
-                    "${index + 1} " + text,
+                    text,
                     style: TextStyle(
                         color: Color(0xff080947),
                         fontSize: 14,

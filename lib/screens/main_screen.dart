@@ -52,9 +52,13 @@ class _MainScreenPage extends State<MainScreenPage> {
       numberOfPoints: 10);
 
   List<Content> content = [
-    Content(name: "Mape planinarskih staza", image: "assets/1.jpg",requestURL: "mape"),
+    Content(
+        name: "Mape planinarskih staza",
+        image: "assets/1.jpg",
+        requestURL: "mape"),
     Content(name: "Obuka", image: "assets/2.jpg", requestURL: "quizzes"),
-    Content(name: "Rang lista igrača", image: "assets/3.jpg", requestURL: "users")
+    Content(
+        name: "Rang lista igrača", image: "assets/3.jpg", requestURL: "users")
   ];
 
   @override
@@ -72,6 +76,34 @@ class _MainScreenPage extends State<MainScreenPage> {
           ),
         ),
         backgroundColor: const Color(0xff9dcbbc),
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text("Informacije o aplikaciji"),
+                      content: Text("Kreator aplikacije je Ognjen Lazić.\n" +
+                          "Aplikacije je kreirana uz pomoć planinarskog kluba \"Očauš\".\n" +
+                          "Svoj doprinos u kreiranju aplikacije dali su: \n"
+                          ),
+                      actions: [
+                        FlatButton(
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop();
+                            },
+                            child: Text("OK",
+                                style: TextStyle(color: Color(0xff080947))))
+                      ],
+                    ),
+                  );
+                },
+                child: Icon(Icons.info_outline,
+                    size: 26.0, color: Color(0xff080947)),
+              )),
+        ],
       ),
       body: Center(
         child: Padding(
@@ -127,7 +159,7 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
                                 image: AssetImage("assets/4.jpg"),
                                 fit: BoxFit.cover)),
@@ -153,7 +185,7 @@ class _MainScreenPage extends State<MainScreenPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white))),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             image: DecorationImage(
                                 image: AssetImage("assets/17.jpg"),
                                 fit: BoxFit.cover)),
