@@ -54,7 +54,7 @@ dev_dependencies:
 
 #flutter_native_splash:
  # color: "#ffffff"
-  #image: "assets/ikonica_final.png"
+  #image: "assets/splashlogo.png"
   #android: true
   #ios: true
   
