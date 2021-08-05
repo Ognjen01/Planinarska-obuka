@@ -98,6 +98,7 @@ class _AllMapsPage extends State<AllMapsPage> {
                       mapUrl: result['mapUrl'],
                       name: result['name'],
                       id: result.id);
+                      newMap.gpxUrl = result['gpxUrl'];
 
                   allMaps.add(newMap);
                 })
