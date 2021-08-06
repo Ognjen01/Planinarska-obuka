@@ -99,7 +99,7 @@ class _AllMapsPage extends State<AllMapsPage> {
                       name: result['name'],
                       id: result.id);
                       newMap.gpxUrl = result['gpxUrl'];
-
+                      print("------------  GPX URL :" + newMap.gpxUrl);
                   allMaps.add(newMap);
                 })
               });
