@@ -1,12 +1,17 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/models/map.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flowder/flowder.dart';
+import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+
 
 class MapScreen extends StatelessWidget {
   Map map;
@@ -14,8 +19,6 @@ class MapScreen extends StatelessWidget {
   MapScreen({@required this.map});
   @override
   Widget build(BuildContext context) {
-    FlutterDownloader.initialize();
-    final externalDir = getExternalStorageDirectory();
     return Scaffold(
         appBar: AppBar(
           actions: [],
@@ -53,7 +56,7 @@ class MapScreen extends StatelessWidget {
                     onPressed: () async => {
                           print("Početak preuzimanja! "),
                           //await downloadFile(map.gpxUrl, map.name)
-                          await FlutterDownloader.enqueue(url: map.gpxUrl, savedDir: externalDir.toString())
+                          await downloadWithAnotherPackage(map)
                           // Preuzimanje gpx traga
                         }),
               ),
@@ -85,33 +88,51 @@ class MapScreen extends StatelessWidget {
           ],
         ));
   }
-    
-    
 
-  Future<String> downloadFile(String url, String fileName) async {
-        HttpClient httpClient = new HttpClient();
-        File file;
-        String filePath = '';
-        String myUrl = '';
-        final dir = await getExternalStorageDirectory();
+  void downloadWithAnotherPackage(Map mapa) async {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+
+    String name = mapa.name;
+    final dir = await getExternalStorageDirectory();
+    final internalDir = await getApplicationDocumentsDirectory();
+    final someDir = await getTemporaryDirectory();
+    Directory path = await downloadsDirectory;
+
+    print('getExternalStorageDirectory : ${dir.path}/$name.gpx');
+    print('getTemporaryDirectory : ${someDir.path}/$name.gpx');
+    print("DownloadsPathProvider.downloadsDirectory : " +
+        path.path +
+        "/$name.gpx");
+    print("getApplicationDocumentsDirectory : " + internalDir.path);
+    Random rnd = new Random();
+      int generatedIndex = 0 + rnd.nextInt(20 - 0);
+
+    try{
+    await File('${path.path}/$name.txt').create();} catch(e) {
+      print("Fajl postoji");
+    }
+
+    final downloaderUtils = DownloaderUtils(
+      progressCallback: (current, total) {
+        final progress = (current / total) * 100;
+        print('Downloading: $progress');
+      },
+      file: File('${path.path}/$name' + generatedIndex.toString() +  '.txt'),
+      progress: ProgressImplementation(),
+      onDone: () => print('Download done'),
+      deleteOnCancel: true,
+    );
+
+    final core = await Flowder.download(mapa.gpxUrl, downloaderUtils);
+    //core.download(url, options)
     
-        try {
-          myUrl = url+'/'+fileName;
-          var request = await httpClient.getUrl(Uri.parse(myUrl));
-          var response = await request.close();
-          if(response.statusCode == 200) {
-            var bytes = await consolidateHttpClientResponseBytes(response);
-            filePath = '$dir/$fileName';
-            file = File(filePath);
-            await file.writeAsBytes(bytes);
-          }
-          else
-            filePath = 'Error code: '+response.statusCode.toString();
-        }
-        catch(ex){
-          filePath = 'Can not fetch url';
-        }
-    
-        return filePath;
-      }
+  }
+  
+
+  Future<Directory> downloadsDirectory =
+      DownloadsPathProvider.downloadsDirectory;
+
 }

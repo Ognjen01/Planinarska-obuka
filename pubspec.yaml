@@ -35,7 +35,8 @@ dependencies:
   path_provider: ^2.0.2
   permission_handler: ^8.1.4+2
   flutter_downloader: ^1.6.1
-
+  flowder: ^0.2.0
+  downloads_path_provider: ^0.1.0
   
 
 

@@ -6,7 +6,9 @@
 
    <application
         android:label="Planinarska Obuka"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true">
+        
         <provider
     android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"
     android:authorities="${applicationId}.flutter_downloader.provider"
