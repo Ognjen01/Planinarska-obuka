@@ -6,12 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:planinarska_obuka/models/map.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:image_downloader/image_downloader.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flowder/flowder.dart';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-
 
 class MapScreen extends StatelessWidget {
   Map map;
@@ -56,7 +53,7 @@ class MapScreen extends StatelessWidget {
                     onPressed: () async => {
                           print("Početak preuzimanja! "),
                           //await downloadFile(map.gpxUrl, map.name)
-                          await downloadWithAnotherPackage(map)
+                          await downloadWithAnotherPackage(map, context)
                           // Preuzimanje gpx traga
                         }),
               ),
@@ -89,29 +86,21 @@ class MapScreen extends StatelessWidget {
         ));
   }
 
-  void downloadWithAnotherPackage(Map mapa) async {
+  void downloadWithAnotherPackage(Map mapa, BuildContext context) async {
     var status = await Permission.storage.status;
     if (!status.isGranted) {
       await Permission.storage.request();
     }
 
     String name = mapa.name;
-    final dir = await getExternalStorageDirectory();
-    final internalDir = await getApplicationDocumentsDirectory();
-    final someDir = await getTemporaryDirectory();
     Directory path = await downloadsDirectory;
 
-    print('getExternalStorageDirectory : ${dir.path}/$name.gpx');
-    print('getTemporaryDirectory : ${someDir.path}/$name.gpx');
-    print("DownloadsPathProvider.downloadsDirectory : " +
-        path.path +
-        "/$name.gpx");
-    print("getApplicationDocumentsDirectory : " + internalDir.path);
     Random rnd = new Random();
-      int generatedIndex = 0 + rnd.nextInt(20 - 0);
+    int generatedIndex = 0 + rnd.nextInt(20 - 0);
 
-    try{
-    await File('${path.path}/$name.txt').create();} catch(e) {
+    try {
+      await File('${path.path}/$name.txt').create();
+    } catch (e) {
       print("Fajl postoji");
     }
 
@@ -120,7 +109,7 @@ class MapScreen extends StatelessWidget {
         final progress = (current / total) * 100;
         print('Downloading: $progress');
       },
-      file: File('${path.path}/$name' + generatedIndex.toString() +  '.txt'),
+      file: File('${path.path}/$name' + generatedIndex.toString() + '.kml'),
       progress: ProgressImplementation(),
       onDone: () => print('Download done'),
       deleteOnCancel: true,
@@ -128,11 +117,27 @@ class MapScreen extends StatelessWidget {
 
     final core = await Flowder.download(mapa.gpxUrl, downloaderUtils);
     //core.download(url, options)
-    
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Uspješno preuzet gpx trag")));
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Objašenjenje", style: TextStyle(color: Color(0xff080947))),
+        content: Text("OBJAŠNJENJE KORIŠTENjA",
+            style: TextStyle(color: Color(0xff080947))),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+              child: Text("OK", style: TextStyle(color: Color(0xff080947))))
+        ],
+      ),
+    );
   }
-  
 
   Future<Directory> downloadsDirectory =
       DownloadsPathProvider.downloadsDirectory;
-
 }
