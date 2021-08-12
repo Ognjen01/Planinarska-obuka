@@ -67,7 +67,7 @@ class _MainScreenPage extends State<MainScreenPage> {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.logout, color: Color(0xff080947)),
-            onPressed: () => {exit(0)}),
+            onPressed: () => {exit(0)}), // Mora se maketi zbog iphonea
         title: Text(
           "Planinarska obuka",
           style: TextStyle(
@@ -80,25 +80,34 @@ class _MainScreenPage extends State<MainScreenPage> {
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: Text("Informacije o aplikaciji"),
-                      content: Text("Kreator aplikacije je Ognjen Lazić.\n" +
-                          "Aplikacije je kreirana uz pomoć planinarskog kluba \"Očauš\".\n" +
-                          "Svoj doprinos u kreiranju aplikacije dali su: \n"
-                          ),
-                      actions: [
-                        FlatButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true).pop();
-                            },
-                            child: Text("OK",
-                                style: TextStyle(color: Color(0xff080947))))
-                      ],
-                    ),
-                  );
+                onTap: () async {
+                  String text = " Tekst ";
+
+                  FirebaseFirestore.instance.collection('sponsors')
+                    ..get().then((querySnapshot) {
+                      querySnapshot.docs.forEach((result) {
+                        return text = result['text'];
+                      });
+                    }).then((value) => {
+                          print("OVO JE TEKST : " + text),
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text("Informacije o aplikaciji"),
+                              content: Text(text),
+                              actions: [
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop();
+                                    },
+                                    child: Text("OK",
+                                        style: TextStyle(
+                                            color: Color(0xff080947))))
+                              ],
+                            ),
+                          )
+                        });
                 },
                 child: Icon(Icons.info_outline,
                     size: 26.0, color: Color(0xff080947)),
