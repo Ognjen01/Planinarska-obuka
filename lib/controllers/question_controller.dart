@@ -54,7 +54,7 @@ class QuestionController extends GetxController
     print("CONTROLLER inicijalizacija");
 
     animationController =
-        AnimationController(duration: Duration(seconds: 90), vsync: this);
+        AnimationController(duration: Duration(seconds: 300), vsync: this);
     animation = Tween<double>(begin: 0, end: 1).animate(animationController)
       ..addListener(() {
         update();
@@ -98,7 +98,7 @@ class QuestionController extends GetxController
     if (questionNumber.value != questions.length) {
       isAnswered = false;
       pageController.nextPage(
-          duration: Duration(milliseconds: 250), curve: Curves.ease);
+          duration: Duration(milliseconds: 350), curve: Curves.ease);
 
       animationController.reset();
 
