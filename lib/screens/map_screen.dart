@@ -129,7 +129,7 @@ class MapScreen extends StatelessWidget {
         content: Text(
             "Uspješno ste preuzeli GPX trag planinara koji su već planinarili stazom ${mapa.name}. \n" +
                 "GPX trag se nalazi u vašem Downloads folderu u fajlovima pod imenom ${mapa.name}${generatedIndex.toString()}.kml \n" +
-                "Da bi ste otvorili ovaj fajl potrebno je da imate neku od aplikacija za prikaz .kml ili .gpx fajlova, kao što su \"GPX Viewer\" ili \"Orux\". \n" +
+                "Da bi ste otvorili ovaj fajl potrebno je da imate neku od aplikacija za prikaz .kml ili .gpx fajlova. \n" +
                 "Ove aplikacije možete pronaći na Google Play Prodavnici",
             style: TextStyle(color: Color(0xff080947))),
         actions: [
