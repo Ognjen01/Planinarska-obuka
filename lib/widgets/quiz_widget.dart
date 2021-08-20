@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:planinarska_obuka/models/quiz.dart';
 import 'package:planinarska_obuka/models/user.dart';
 import 'package:planinarska_obuka/screens/question_screen.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 class QuizWidget extends StatelessWidget {
   Quiz quiz;
@@ -39,7 +40,7 @@ class QuizWidget extends StatelessWidget {
                             Text("Svako pitanje nosi po jedan bod."),
                             Text(
                                 "Ne postoje negativni bodovi, niti oduzimanje postojećeg broja bodova."),
-                                Text(
+                            Text(
                                 "Ukoliko prekinete kviz vaši bodovi neće biti uračunati!"),
                             Text(
                               "Srećno!",
@@ -63,15 +64,18 @@ class QuizWidget extends StatelessWidget {
             width: double.infinity,
             height: 200.0,
             child: Center(
-                child: Text(quiz.nameOfQuiz,
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white))),
+                child: BorderedText(
+                    strokeWidth: 1.0,
+                    strokeColor: Colors.grey,
+                    child: Text(quiz.nameOfQuiz,
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)))),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 image: DecorationImage(
-                    image: NetworkImage('${quiz.coverPhotoUrl}'), 
+                    image: NetworkImage('${quiz.coverPhotoUrl}'),
                     fit: BoxFit.cover)),
           ),
         ),

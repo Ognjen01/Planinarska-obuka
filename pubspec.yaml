@@ -36,6 +36,8 @@ dependencies:
   flutter_downloader: ^1.6.1
   flowder: ^0.2.0
   downloads_path_provider: ^0.1.0
+  bordered_text: ^2.0.0
+
   
 
 
